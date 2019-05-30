@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Create Office - Politica</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <header>
+        <nav>
+
+            <div class="topnav" id="myTopnav">
+                <a href="admin.html" class="">
+                    <img class="page_logo" src="assets/images/ElectionLogo.jpg" alt="">
+                </a>
+                <a href="admin.html" class="move_right">Home</a>
+                <a href="adminresultsheet.html">Results</a>
+                <a href="adminviewparties.html">Parties</a>
+                <a href="adminviewoffices.html" class="active">Offices</a>
+                <!-- <div class="dropdown">
+                    <button class="dropbtn">Parties 
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                    <a href="adminviewparties.html">View Parties</a>
+                    <a href="admincreateparties.html">Create Parties</a>
+                    </div>
+                </div>  -->
+                <!-- <div class="dropdown active">
+                    <button class="dropbtn">Offices 
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                    <a href="admincreateoffice.html">View Offices</a>
+                    <a class="active" href="admincreateoffice.html">Create Offices</a>
+                    </div>
+                </div>  -->
+                <a href="#about">Logout</a>
+                <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+            </div>
+        </nav>
+    </header>
+
+
+    <section class="form_section">
+        <div class="form_wrapper">
+            <form action="" method="post" class="auto_positioned empty_space">
+
+                <h1>Add Office</h1>
+
+                <!-- <label for="serialNumber">S/N</label>
+                <input type="number" name="serialNumber" class="form-control"> -->
+
+                <label for="officetype">Office Type</label>
+                <select name="officetype" class="form-control">
+                    <option value="">Select Office Type</option>
+                    <option value="federal">Federal</option>
+                    <!-- <option value="legislative">Legislative</option> -->
+                    <option value="state">State</option>
+                    <option value="Local">Local</option>
+                </select>
+
+                <label for="officename">Office Name:</label>
+                <input type="text" name="officename" class="form-control">
+
+                <input type="submit" value="Add" class="submit">
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footnote">
+            &copy; 2019 Politica. All Rights Reserved! <br>
+            Made with ❤ by Warri Online
+        </div>
+    </footer>
+
+
+    <script src="assets/js/script.js"></script>
+
+</body>
+</html>

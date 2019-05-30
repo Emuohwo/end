@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SignUp - Politica</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <header>
+        <nav>
+
+            <div class="topnav" id="myTopnav">
+                <a href="index.html">
+                    <img class="page_logo" src="assets/images/ElectionLogo.jpg" alt="">
+                </a>
+                <a href="index.html" class=" move_right_right">Home</a>
+                <!-- <a href="news.html">News</a> -->
+                <a href="signin.html">Login</a>
+                <a href="signup.html" class="active">Register</a>
+                <!-- <div class="dropdown">
+                    <button class="dropbtn">Dropdown 
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                    </div>
+                </div>  -->
+                <!-- <a href="#about">About</a> -->
+                <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="form_section">
+        <div class="form_wrapper">
+            <form action="" method="post" class="auto_positioned">
+
+                <h1>Sign Up</h1>
+
+                <label for="firstname">First Name:</label>
+                <input type="text" name="firstname" class="form-control">
+
+                <label for="lastname">Last Name:</label>
+                <input type="text" name="lastname" class="form-control">
+
+                <label for="othername">Other Names:</label>
+                <input type="text" name="othername" class="form-control">
+
+                <label for="email">Email:</label>
+                <input type="email" name="email" class="form-control">
+
+                <label for="password">Password:</label>
+                <input type="password" name="password" class="form-control">
+
+                <label for="phoneNumber">Phone Number:</label>
+                <input type="tel" name="phoneNumber" class="form-control">
+
+                <label for="passportUrl">Passport Url:</label>
+                <input type="file" name="passportUrl" class="form-control">
+
+                <label for="isAdmin">Admin Role</label>
+                <input type="radio" name="isAdmin"> Yes
+                <input type="radio" name="isAdmin" id=""> No
+
+                <input type="submit" value="Sign Up" class="submit">
+                <p>Already have an account? <a href="signin.html">signin</a></p>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footnote">
+            &copy; 2019 Politica. All Rights Reserved! <br>
+            Made with Love by Warri Online
+        </div>
+    </footer>
+
+
+    <script src="assets/js/script.js"></script>
+
+</body>
+</html>

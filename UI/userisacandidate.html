@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Candidates - Politica</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    
+    <header>
+        <nav>
+
+            <div class="topnav" id="myTopnav">
+                <a href="user.html">
+                    <img class="page_logo" src="assets/images/ElectionLogo.jpg" alt="">
+                </a>
+                <a href="user.html" class="move_right">Home</a>
+                <a href="userviewparties.html">Parties</a>
+                <a href="userviewoffices.html" class="active">Offices</a>
+                <a href="federalelection.html">Election</a>
+                <!-- <div class="dropdown">
+                    <button class="dropbtn">Offices 
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                    <a href="">View Offices</a>
+                    <a href="">Create Offices</a>
+                    </div>
+                </div>  -->
+                <!-- <div class="dropdown" class="active">
+                    <button class="dropbtn">Candidates 
+                    <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="userisacandidate.html">Become a Candidate</a>
+                        <a href="federalelection.html" class="active">Elect Federal Candidate</a>
+                        <a href="legislativeelection.html">Elect Legislative Candidate</a>
+                        <a href="stateelection.html">Elect State Candidate</a>
+                        <a href="localelection.html">Elect Local Candidate</a>
+                    </div>
+                </div>  -->
+                <a href="">Logout</a>
+                <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="form_section">
+        <div class="form_wrapper">
+            <form action="" method="post" class="auto_positioned empty_space">
+
+                <h1>Contest for Office</h1>
+
+                <!-- <label for="serialNumber">S/N</label>
+                <input type="number" name="serialNumber" class="form-control"> -->
+
+                <!-- <label for="officetype">Office Type</label>
+                <select name="officetype" class="form-control">
+                    <option value="">Select Office Type</option>
+                    <option value="federal">Federal</option>
+                    <option value="legislative">Legislative</option>
+                    <option value="state">State</option>
+                    <option value="Local">Local</option>
+                </select> -->
+
+                <label for="officename">Office Name</label>
+                <select name="officename" class="form-control">
+                    <option value="">Select Office Name</option>
+                    <option value="federal">President</option>
+                    <!-- <option value="legislative">Governor</option> -->
+                    <option value="state">Governor</option>
+                    <option value="Local">Chairman</option>
+                </select>
+
+                <label for="partyname">Party</label>
+                <select name="partyname" class="form-control">
+                    <option value="">Select Party</option>
+                    <option value="federal">People Democratic Party</option>
+                    <option value="state">All Progressive Party</option>
+                </select>
+
+                <!-- <label for="officename">Office Name:</label>
+                <input type="text" name="officename" class="form-control"> -->
+
+                <!-- <label for="partylogo">Party Logo<label>
+                <input type="file" name="partylogo" class="form-control"> -->
+
+                <!-- <label for="candidatename">Candidate Name</label>
+                <input type="text" name="candidatename" class="form-control" placeholder="Your Name"> -->
+
+                <!-- <label for="manifesto">Manifesto</label>
+                <textarea name="manifesto" class="form-control" id="" cols="30" rows="10" placeholder="Write Your Manifesto"></textarea> -->
+
+                <input type="submit" value="Add" class="submit">
+            </form>
+        </div>
+    </section>
+
+    
+    <footer class="fixed_footer">
+        <div class="footnote">
+            &copy; 2019 Politica. All Rights Reserved! <br>
+            Made with Love by Warri Online
+        </div>
+    </footer>
+
+
+    <script src="assets/js/script.js"></script>
+
+</body>
+</html>
