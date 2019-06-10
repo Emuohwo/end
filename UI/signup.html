@@ -13,13 +13,13 @@
         <nav>
 
             <div class="topnav" id="myTopnav">
-                <a href="index.html">
+                <a href="/">
                     <img class="page_logo" src="assets/images/ElectionLogo.jpg" alt="">
                 </a>
-                <a href="index.html" class=" move_right_right">Home</a>
+                <a href="/" class=" move_right_right">Home</a>
                 <!-- <a href="news.html">News</a> -->
-                <a href="signin.html">Login</a>
-                <a href="signup.html" class="active">Register</a>
+                <a href="/login">Login</a>
+                <a href="/register" class="active">Register</a>
                 <!-- <div class="dropdown">
                     <button class="dropbtn">Dropdown 
                     <i class="fa fa-caret-down"></i>
@@ -31,14 +31,14 @@
                     </div>
                 </div>  -->
                 <!-- <a href="#about">About</a> -->
-                <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+                <a href="javascript:void(0);" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
         </nav>
     </header>
 
     <section class="form_section">
         <div class="form_wrapper">
-            <form action="" method="post" class="auto_positioned">
+            <form action="/api/v1/users" method="post" class="auto_positioned">
 
                 <h1>Sign Up</h1>
 
@@ -63,9 +63,9 @@
                 <label for="passportUrl">Passport Url:</label>
                 <input type="file" name="passportUrl" class="form-control">
 
-                <label for="isAdmin">Admin Role</label>
-                <input type="radio" name="isAdmin"> Yes
-                <input type="radio" name="isAdmin" id=""> No
+                <label for="role">Role</label>
+                <input type="radio" name="role" id="isAdmin" value="isAdmin"> Admin
+                <input type="radio" name="role" id="isUser" value="isUser"> User
 
                 <input type="submit" value="Sign Up" class="submit">
                 <p>Already have an account? <a href="signin.html">signin</a></p>
