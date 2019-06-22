@@ -1,0 +1,14 @@
+node_modules
+dist
+.idea
+.DS_STORE
+coverage
+.coveralls.yml
+.nyc_output
+# logs
+npm-debug.log
+yarn-error.log
+.vscode
+.env
+/client/build
+production/
