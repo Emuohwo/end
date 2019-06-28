@@ -4,7 +4,7 @@
   "description": "Endpoint of the ui",
   "main": "index.js",
   "scripts": {
-    "test": "mocha ./tests --recursive",
+    "test": "mocha --require @babel/register  --recursive tests --exit",
     "build": "babel server.js --out-dir build",
     "dev-start": "babel-watch server.js",
     "lint": "eslint routes src server.js --fix"
@@ -21,6 +21,7 @@
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
+    "@babel/register": "^7.4.4",
     "babel-preset-env": "^1.7.0",
     "babel-watch": "^7.0.0",
     "chai": "^4.2.0",
