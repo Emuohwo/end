@@ -1,5 +1,5 @@
 // import the dependencies for testing
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
 
@@ -7,28 +7,18 @@ import app from '../server';
 chai.use(chaiHttp);
 chai.should();
 
-describe("Votes", () => {
-    describe("GET /", () => {
-        // Test to get all votes
-        // it("should get all candidates voted", (done) => {
-        //     chai.request(app)
-        //     .get('/')
-        //     .end((err, res) => {
-        //         res.should.have.status(200);
-        //         res.body.should.be.a('object');
-        //         done();
-        //     });
-        // });
+describe('Home', () => {
 
-        // Test to get single vote
-        it("should get single vote", (done) => {
-            chai.request(app)
-            .get('/api/v1/votes')
-            .end( (err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('object');
-                done();
-            })
-        })
-    })
-})
+    // Test to get all votes
+    it("get home route", (done) => {
+        chai.request(app)
+        .get('/')
+        .end((err, res) => {
+            const expected = {message: 'Welcome to Politico'};
+            expect(res.body).to.eql(expected);
+            res.should.have.status(200);
+            done(err);
+        });
+    });
+    
+});
