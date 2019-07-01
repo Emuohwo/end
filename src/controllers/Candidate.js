@@ -46,7 +46,7 @@ const Candidate = {
   update(req, res) {
     const candidate = CandidateModel.findOne(req.params.id);
     if (!candidate) {
-      return res.status(200).send({ message: 'candidate not found' });
+      return res.status(404).send({ message: 'candidate not found' });
     }
     const updatedCandidate = CandidateModel.update(req.params.id, req.body);
     return res.status(200).send(updatedCandidate);
