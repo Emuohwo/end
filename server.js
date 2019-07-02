@@ -1,6 +1,14 @@
 import express from 'express';
 import logger from 'morgan';
+import dotenv from 'dotenv';
+import 'babel-polyfill'; // deprecated
 import routes from './routes/index';
+import PartyWithJsObject from './src/usingJSObject/controllers/Party';
+import PartyWithDB from './src/usingDB/controllers/Party';
+
+dotenv.config();
+const Party = process.env.TYPE==='db' ? PartyWithDB : PartyWithJsObject;
+
 
 const app = express();
 const router = express.Router();
