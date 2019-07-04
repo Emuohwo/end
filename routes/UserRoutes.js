@@ -1,4 +1,5 @@
-import User from '../src/controllers/User';
+// import User from '../src/controllers/User';
+import User from '../src/usingJSObject/controllers/User';
 
 const userRoutes = (router) => {
   router.post('/api/v1/users', User.create);

@@ -1,4 +1,5 @@
-import Vote from '../src/controllers/Vote';
+// import Vote from '../src/controllers/Vote';
+import Vote from '../src/usingJSObject/controllers/Vote';
 
 const voteRoutes = (router) => {
   router.post('/api/v1/votes', Vote.create);

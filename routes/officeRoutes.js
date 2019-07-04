@@ -1,4 +1,5 @@
-import Office from '../src/controllers/Office';
+// import Office from '../src/controllers/Office';
+import Office from '../src/usingJSObject/controllers/Office';
 
 const officeRoutes = (router) => {
   router.post('/api/v1/offices', Office.create);

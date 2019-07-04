@@ -1,4 +1,6 @@
-import Party from '../src/controllers/Party';
+// import Party from '../src/controllers/Party';
+import Party from '../src/usingJSObject/controllers/Party';
+// import PartyWithDb from '../src/usingDB/controllers/Party';
 
 
 const partyRoutes = (router) => {
