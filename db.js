@@ -22,19 +22,17 @@ const createPartyTable = () => {
             name TEXT NOT NULL,
             hqAddress TEXT NOT NULL,
             logoUrl TEXT NOT NULL,
-            owner_id UUID NOT NULL,
             createdDate TIMESTAMP,
             modifiedDate TIMESTAMP
-            FOREIGN KEY (owner_id) REFERNCES users (id) ON DELETE CASCADE
         )`;
 
         pool.query(queryText)
             .then((res) => {
-                console.log(res, "I am here");
+                console.log(res);
                 pool.end();
             })
             .catch((err) => {
-                console.log(err, "****************");
+                console.log(err);
                 pool.end();
             })
 };
