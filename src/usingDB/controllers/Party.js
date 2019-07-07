@@ -25,8 +25,8 @@ const Party = {
         ];
 
         try {
-            const { row } = await db.query(text, values);
-            return res.status(201).send(row[0]);
+            const { rows } = await db.query(text, values);
+            return res.status(201).send(rows[0]);
         } catch(error) {
             return res.status(400).send(error);
         }
@@ -61,7 +61,7 @@ const Party = {
             }
             return res.status(200).send(rows[0]);
         } catch (error) {
-            return res.status(400).send(errp)
+            return res.status(400).send(error)
         }
     },
     /**
@@ -95,7 +95,7 @@ const Party = {
         }
     },
     /**
-     * Deete A party
+     * Delete A party
      * @param {object} req
      * @param {object} res
      * @returns {void} return status code 204

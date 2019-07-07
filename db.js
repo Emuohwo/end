@@ -67,8 +67,57 @@ const createUserTable = () => {
     })
 };
 
+/**
+ * Create Office Table
+ */
+const createOfficeTable = () => {
+    const queryText = 
+    `CREATE TABLE IF NOT EXISTS 
+    offices(
+        id UUID PRIMARY KEY,
+        type VARCHAR(128) NOT NULL,
+        name VARCHAR(128) NOT NULL
+    )`;
+
+    pool.query(queryText)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    })
+}
+
+/**
+ * Create Candidate Table
+ */
+const createCandidatesTable = () => {
+    const queryText = 
+    `CREATE TABLE IF NOT EXISTS 
+    candidates(
+        id UUID PRIMARY KEY,
+        office UUID NOT NULL REFERENCES offices(id) ON DELETE RESTRICT,
+        party UUID NOT NULL REFERENCES parties(id) ON DELETE RESTRICT,
+        candidate UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
+    )`;
+
+    pool.query(queryText)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    })
+}
+
 createUserTable();
 createPartyTable();
+createOfficeTable();
+createCandidatesTable();
 
 // /**
 //  * Drop Party Table
@@ -85,6 +134,23 @@ createPartyTable();
 //         pool.end();
 //     });
 // }
+
+// /**
+//  * Drop Office Table
+//  */
+// const dropOfficeTable = () => {
+//     const queryText = 'DROP TABLE IF EXISTS parties returning *';
+//     pool.query(queryText)
+//     .then((res) => {
+//         console.log(res);
+//         pool.end();
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//         pool.end();
+//     });
+// }
+
 // /**
 //  * Drop User Table
 //  */
@@ -106,6 +172,7 @@ createPartyTable();
 // const createAllTables = () => {
 //     createUserTable();
 //     createPartyTable();
+    // createOfficeTable();
 // }
 // /**
 //  * Drop All Tables
@@ -113,6 +180,7 @@ createPartyTable();
 // const dropAllTables = () => {
 //     dropUserTable();
 //     dropPartyTable();
+//     dropOfficeTable();
 // }
 
 // createAllTables();
@@ -124,10 +192,12 @@ createPartyTable();
 
 // module.exports = {
 //     createPartyTable,
+// createOfficeTable,
 //     createUserTable,
 //     createAllTables,
 //     dropUserTable,
 //     dropPartyTable,
+// dropOfficeTable
 //     dropAllTables
 // };
 
