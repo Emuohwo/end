@@ -69,7 +69,7 @@ const Vote = {
      */
     async updateVote(req, res) {
         const findOneQuery = 'SELECT * FROM votes office = $1';
-        const updateOneQuery = `UPDAGE votes 
+        const updateOneQuery = `UPDADE votes 
         SET createdOn=$1,createdBy=$2,candidate=$3 
         WHERE office=$4 returning *`;
         try {
@@ -108,3 +108,5 @@ const Vote = {
         }
     }
 }
+
+export default Vote;

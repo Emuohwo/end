@@ -26,7 +26,7 @@ const Helper = {
      * @returns {Boolean} True or False
      */
     isValidEmail(email) {
-        return /\S+@\.\S+/.test(email);
+        return /\S+@\S+\.\S+/.test(email);
     },
     /**
      * Generate Token

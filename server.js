@@ -1,7 +1,7 @@
 import express from 'express';
 import logger from 'morgan';
 import dotenv from 'dotenv';
-import 'babel-polyfill'; // deprecated
+import 'babel-polyfill'; 
 import routes from './routes/index';
 import PartyWithJsObject from './src/usingJSObject/controllers/Party';
 import PartyWithDB from './src/usingDB/controllers/Party';
@@ -27,21 +27,21 @@ app.use(logger('dev'));
 routes(app);
 // app.use('/api/v1/', router);
 
-app.post('/api/v1/parties', Auth.verifyToken, Party.create);
-app.get('/api/v1/parties', Auth.verifyToken, Party.getAll);
-app.get('/api/v1/parties/:id', Auth.verifyToken, Party.getOne);
-app.put('/api/v1/parties/:id', Auth.verifyToken, Party.update);
-app.delete('/api/v1/parties/:id', Auth.verifyToken, Party.delete);
+app.post('/api/parties', Auth.verifyToken, Party.create);
+app.get('/api/parties', Auth.verifyToken, Party.getAll);
+app.get('/api/parties/:id', Auth.verifyToken, Party.getOne);
+app.put('/api/parties/:id', Auth.verifyToken, Party.update);
+app.delete('/api/parties/:id', Auth.verifyToken, Party.delete);
 
-app.post('/api/v1/users', UserWithDb.create);
-app.post('/api/v1/users/login', UserWithDb.login);
-app.delete('/api/v1/users/me', Auth.verifyToken, UserWithDb.delete);
+app.post('/api/users', UserWithDb.create);
+app.post('/api/users/login', UserWithDb.login);
+app.delete('/api/users/me', Auth.verifyToken, UserWithDb.delete);
 
-app.post('/api/v1/offices', Auth.verifyToken, Office.create);
-app.get('/api/v1/offices', Auth.verifyToken, Office.getAll);
-app.get('/api/v1/offices/:id', Auth.verifyToken, Office.getOneOffice);
-app.put('/api/v1/offices/:id', Auth.verifyToken, Office.update);
-app.delete('/api/v1/office/:id', Auth.verifyToken, Office.delete);
+app.post('/api/offices', Auth.verifyToken, Office.create);
+app.get('/api/offices', Auth.verifyToken, Office.getAll);
+app.get('/api/offices/:id', Auth.verifyToken, Office.getOneOffice);
+app.put('/api/offices/:id', Auth.verifyToken, Office.update);
+app.delete('/api/office/:id', Auth.verifyToken, Office.delete);
 
 app.post('/api/v1/candidates', Auth.verifyToken, Candidate.createCandidate);
 app.get('/api/v1/candidates', Auth.verifyToken, Candidate.getAllCandidates);

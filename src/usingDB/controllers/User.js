@@ -11,11 +11,15 @@ const User = {
      * @returns {object} party object
      */
     async create(req, res) {
-        if (!req.body.email || !req.body.password) {
+        if (!req.body.email || !req.body.password || !req.body.firstname || !req.body.lastname
+            || !req.body.othername || !req.body.phoneNumber || !req.body.passportUrl
+            || !req.body.isAdmin) {
+                console.log('I am');
             return res.status(400).send({'message': 'Some values are missing'});
+            
         }
         if (!Helper.isValidEmail(req.body.email)) {
-            return res.status(400).send({'message': 'Please enter a valid email address'});
+            return res.status(400).send({'message': 'Please enter a valid email address hmmmmm'});
         }
         const hashPassword = Helper.hashPassword(req.body.password);
 
@@ -25,8 +29,13 @@ const User = {
         returning *`;
         const values = [
             uuidv4(),
+            req.body.firstname,
+            req.body.lastname,
             req.body.email,
-            hashPassword
+            hashPassword,
+            req.body.phoneNumber,
+            req.body.passportUrl,
+            req.body.isAdmin
         ];
 
         try {
