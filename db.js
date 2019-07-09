@@ -114,10 +114,36 @@ const createCandidatesTable = () => {
     })
 }
 
+/**
+ * Create Vote Table
+ */
+const createVotesTable = () => {
+    const queryText = 
+    `CREATE TABLE IF NOT EXISTS 
+    votes(
+        id UUID PRIMARY KEY,
+        createdOn TIMESTAMP NOT NULL,
+        createdBy UUID NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
+        office UUID NOT NULL REFERENCES offices(id) ON DELETE RESTRICT,
+        candidate UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
+    )`;
+
+    pool.query(queryText)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    })
+}
+
 createUserTable();
 createPartyTable();
 createOfficeTable();
 createCandidatesTable();
+createVotesTable();
 
 // /**
 //  * Drop Party Table

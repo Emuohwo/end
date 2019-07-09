@@ -38,10 +38,10 @@ app.post('/api/v1/users/login', UserWithDb.login);
 app.delete('/api/v1/users/me', Auth.verifyToken, UserWithDb.delete);
 
 app.post('/api/v1/offices', Auth.verifyToken, Office.create);
-app.get('/api/v1/offices', Auth.verifyToken, Office.getAllOffices);
+app.get('/api/v1/offices', Auth.verifyToken, Office.getAll);
 app.get('/api/v1/offices/:id', Auth.verifyToken, Office.getOneOffice);
-app.put('/api/v1/offices/:id', Auth.verifyToken, Office.updateOneOffice);
-app.delete('/api/v1/office/:id', Auth.verifyToken, Office.deleteOneOffice);
+app.put('/api/v1/offices/:id', Auth.verifyToken, Office.update);
+app.delete('/api/v1/office/:id', Auth.verifyToken, Office.delete);
 
 app.post('/api/v1/candidates', Auth.verifyToken, Candidate.createCandidate);
 app.get('/api/v1/candidates', Auth.verifyToken, Candidate.getAllCandidates);

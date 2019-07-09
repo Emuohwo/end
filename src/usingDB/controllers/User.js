@@ -2,7 +2,6 @@ import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import db from '../db';
 import Helper from './Helper';
-import { create } from 'domain';
 
 const User = {
     /**
@@ -52,7 +51,7 @@ const User = {
             return res.status(400).send({ 'message': 'Some values are missing'});
         }
         if (!Helper.isValidEmail(req.body.email)) {
-        return res.status(400).send({ 'message': 'Please enter a valid email address'})
+        return res.status(400).send({ 'message': 'Please enter a valid email address Op'})
         }
         const text = 'SELECT * FROM users WHERE email = $1';
         try {

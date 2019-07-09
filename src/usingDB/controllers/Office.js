@@ -1,7 +1,6 @@
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import db from '../db';
-import { create } from 'domain';
 
 const Office = {
     /**
@@ -35,10 +34,10 @@ const Office = {
      * @param {object} res
      * @returns {object} office object
      */
-    async getAllOffices(req, res) {
+    async getAll(req, res) {
         const findAllQuery = 'SELECT * FROM offices';
         try {
-            const { rows, rowCount } = await db.query(findAllQuery, [req.user.id]);
+            const { rows, rowCount } = await db.query(findAllQuery);
             return res.status(200).send((rows, rowCount));
         } catch(error) {
             return res.status(400).send(error)
@@ -66,7 +65,7 @@ const Office = {
      * @param {object} res
      * @returns {object} updated office
      */
-    async updateOneOffice(req, res) {
+    async update(req, res) {
         const findOneOffice = 'SELECT FROM * offices WHERE id = $1';
         const updateOneOffice = `UPDATE offices 
         SET type=$1, name=$2 
@@ -79,8 +78,7 @@ const Office = {
             const values = [
                 req.body.type || rows[0].type,
                 req.body.name || rows[0].name,
-                req.params.id,
-                req.user.id
+                req.params.id
             ];
             const response = await db.query(updateOneOffice, values);
             return res.status(200).send(response.rows[0]);
@@ -94,7 +92,7 @@ const Office = {
      * @param{object} res
      * @returns {void} return status code 204
      */
-    async deleteOneOffice(req, res) {
+    async delete(req, res) {
         const deleteOffice = 'DELETE GROM offices WHERE id=$1 returning *';
         try {
             const { rows } = await db.query(deleteOffice, [req.params.id, req.user.id]);
