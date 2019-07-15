@@ -16,9 +16,9 @@ const Vote = {
         const values = [
             uuidv4(),
             moment(new Date()).format("YYY-MM-DD HH:MM:SS"),
-            req.user.id,
-            req.office.id,
-            req.candidate.id
+            req.body.user,
+            req.body.office,
+            req.body.candidate
         ];
 
         try {

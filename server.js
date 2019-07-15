@@ -9,6 +9,7 @@ import OfficeWithDB from './src/usingDB/controllers/Office';
 import OfficeWithJsObject from './src/usingJSObject/controllers/Office';
 import CandidateWithDB from './src/usingDB/controllers/Candidate'
 import CandidateWithJsObject from './src/usingJSObject/controllers/Candidate';
+import VoteWithDb from './src/usingDB/controllers/Vote';
 import UserWithDb from './src/usingDB/controllers/User';
 import Auth from './src/usingDB/middleware/Auth';
 
@@ -17,6 +18,7 @@ dotenv.config();
 const Party = process.env.TYPE==='db' ? PartyWithDB : PartyWithJsObject;
 const Office = process.env.TYPE==='db' ? OfficeWithDB : OfficeWithJsObject;
 const Candidate = process.env.TYPE==='db' ? CandidateWithDB : CandidateWithJsObject;
+const Vote = process.env.TYPE==='db' ? VoteWithDb: VoteWithDb;
 
 
 const app = express();
@@ -43,12 +45,13 @@ app.get('/api/offices/:id', Auth.verifyToken, Office.getOneOffice);
 app.put('/api/offices/:id', Auth.verifyToken, Office.update);
 app.delete('/api/offices/:id', Auth.verifyToken, Office.delete);
 
-app.post('/api/v1/candidates', Auth.verifyToken, Candidate.createCandidate);
-app.get('/api/v1/candidates', Auth.verifyToken, Candidate.getAllCandidates);
+app.post('/api/candidates', Auth.verifyToken, Candidate.createCandidate);
+app.get('/api/candidates', Auth.verifyToken, Candidate.getAllCandidates);
 app.get('/api/v1/candidates/:id', Auth.verifyToken, Candidate.getOneCandidate);
 app.put('/api/v1/candidates/:id', Auth.verifyToken, Candidate.updateOndeCandidate);
 app.delete('/api/v1/candidates/:id', Auth.verifyToken, Candidate.deleteCandidate);
 
+app.post('/api/votes', Auth.verifyToken, Vote.createVote);
 
 app.listen(3000);
 // console.log('app listening on port ', 3000);

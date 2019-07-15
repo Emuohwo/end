@@ -14,10 +14,10 @@ const Candidate = {
         VALUES($1, $2, $3, $4) 
         returning *`;
         const values = [
-            uuidv4,
-            req.office.id,
-            req.party.id,
-            req.candidate.id
+            uuidv4(),
+            req.body.office,
+            req.body.party,
+            req.body.candidate
         ];
 
         try {

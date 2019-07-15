@@ -10,7 +10,7 @@ const Office = {
      * @returns {object} office object
      */
     async create(req, res) {
-        const text = `INSERT NTO 
+        const text = `INSERT INTO
         offices(id, type, name) 
         VALUES($1, $2, $3) 
         returning *`;
