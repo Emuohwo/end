@@ -7,6 +7,10 @@ const userRoutes = (router) => {
   router.get('/api/v1/users/:id', User.getOne);
   router.put('/api/v1/users/:id', User.update);
   router.delete('/api/v1/users/:id', User.delete);
+  
+// router.post('/api/users', UserWithDb.create);
+// router.post('/api/users/login', UserWithDb.login);
+// router.delete('/api/users/me', Auth.verifyToken, UserWithDb.delete);
 };
 
 export default userRoutes;

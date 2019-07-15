@@ -9,7 +9,7 @@ import OfficeWithDB from './src/usingDB/controllers/Office';
 import OfficeWithJsObject from './src/usingJSObject/controllers/Office';
 import CandidateWithDB from './src/usingDB/controllers/Candidate'
 import CandidateWithJsObject from './src/usingJSObject/controllers/Candidate';
-import UserWithDb from './src/usingDB/controllers/User'
+import UserWithDb from './src/usingDB/controllers/User';
 import Auth from './src/usingDB/middleware/Auth';
 
 
@@ -41,7 +41,7 @@ app.post('/api/offices', Auth.verifyToken, Office.create);
 app.get('/api/offices', Auth.verifyToken, Office.getAll);
 app.get('/api/offices/:id', Auth.verifyToken, Office.getOneOffice);
 app.put('/api/offices/:id', Auth.verifyToken, Office.update);
-app.delete('/api/office/:id', Auth.verifyToken, Office.delete);
+app.delete('/api/offices/:id', Auth.verifyToken, Office.delete);
 
 app.post('/api/v1/candidates', Auth.verifyToken, Candidate.createCandidate);
 app.get('/api/v1/candidates', Auth.verifyToken, Candidate.getAllCandidates);

@@ -1,8 +1,8 @@
 import jwt from 'jsonwebtoken';
 import db from '../db';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 
-dotenv.config();
+// dotenv.config();
 
 const Auth = {
     /**

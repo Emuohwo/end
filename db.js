@@ -33,7 +33,7 @@ const createPartyTable = () => {
             })
             .catch((err) => {
                 console.log(err);
-                pool.end();
+                // pool.end();
             })
 };
 
@@ -63,7 +63,7 @@ const createUserTable = () => {
     })
     .catch((err) => {
         console.log(err);
-        pool.end();
+        // pool.end();
     })
 };
 
@@ -86,9 +86,9 @@ const createOfficeTable = () => {
     })
     .catch((err) => {
         console.log(err);
-        pool.end();
+        // pool.end();
     })
-}
+};
 
 /**
  * Create Candidate Table
@@ -110,7 +110,7 @@ const createCandidatesTable = () => {
     })
     .catch((err) => {
         console.log(err);
-        pool.end();
+        // pool.end();
     })
 }
 
@@ -135,7 +135,7 @@ const createVotesTable = () => {
     })
     .catch((err) => {
         console.log(err);
-        pool.end();
+        // pool.end();
     })
 }
 
