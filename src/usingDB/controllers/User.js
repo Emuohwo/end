@@ -19,8 +19,8 @@ const User = {
     const hashPassword = Helper.hashPassword(req.body.password);
 
     const createQuery = `INSERT INTO
-      users(id, firstname, lastname, othername, email, password, phoneNumber, passportUrl, isAdmin)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      users(id, firstname, lastname, othername, email, password, phoneNumber, passportUrl)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
       returning *`;
     const values = [
       uuidv4(),
@@ -30,14 +30,31 @@ const User = {
       req.body.email,
       hashPassword,
       req.body.phoneNumber,
-      req.body.passportUrl,
-      req.body.isAdmin
+      req.body.passportUrl
     ];
 
     try {
       const { rows } = await db.query(createQuery, values);
-      const token = Helper.generateToken(rows[0].id);
-      return res.status(201).send({ token });
+      const token = Helper.generateToken(rows[0].id, rows[0].isadmin);
+      const {id, firstname, lastname, othername, email, phoneNumber, passportUrl, isAdmin} = rows[0];
+      const user = {
+        id,
+        firstname,
+        lastname,
+        othername,
+        email,
+        phoneNumber,
+        passportUrl,
+        isAdmin,
+      }
+      return res.status(201).send({ 
+        status: 201,
+        data: [{
+          token,
+          user,
+          message: 'Signup successful'
+        }],
+      });
     } catch(error) {
       if (error.routine === '_bt_check_unique') {
         return res.status(400).send({ 'message': 'User with that EMAIL already exist' })
@@ -67,8 +84,26 @@ const User = {
       if(!Helper.comparePassword(rows[0].password, req.body.password)) {
         return res.status(400).send({ 'message': 'Incorrect password' });
       }
-      const token = Helper.generateToken(rows[0].id);
-      return res.status(200).send({ token });
+      const token = Helper.generateToken(rows[0].id, rows[0].isadmin);
+      const {id, firstname, lastname, othername, email, phoneNumber, passportUrl, isAdmin} = rows[0];
+      const user = {
+        id,
+        firstname,
+        lastname,
+        othername,
+        email,
+        phoneNumber,
+        passportUrl,
+        isAdmin
+      };
+      return res.status(200).send({ 
+        status: 200,
+        data: [{
+          message: `Hi ${firstname}, Welcome to Politica`,
+          token,
+          user,
+        }],
+      });
     } catch(error) {
       return res.status(400).send(error)
     }

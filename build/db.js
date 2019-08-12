@@ -45,7 +45,7 @@ var createUserTable = function createUserTable() {
 
 
 var createOfficeTable = function createOfficeTable() {
-  var queryText = "CREATE TABLE IF NOT EXISTS \n    offices(\n        id UUID PRIMARY KEY,\n        type VARCHAR(128) NOT NULL,\n        name VARCHAR(128) NOT NULL\n    )";
+  var queryText = "CREATE TABLE IF NOT EXISTS \n    offices(\n        id UUID PRIMARY KEY,\n        type VARCHAR(128) NOT NULL,\n        name VARCHAR(128) UNIQUE NOT NULL\n    )";
   pool.query(queryText).then(function (res) {
     console.log(res);
     pool.end();

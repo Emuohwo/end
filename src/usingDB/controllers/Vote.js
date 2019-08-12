@@ -10,20 +10,25 @@ const Vote = {
      * @returns {object} vote object
      */
     async createVote(req, res) {
+        const { id: createdBy } = req.user;
         const text = `INSERT INTO 
         votes(id, createdOn, createdBy, office, candidate) 
         VALUES($1, $2, $3, $4, $5) returning *`;
         const values = [
             uuidv4(),
             moment(new Date()).format("YYY-MM-DD HH:MM:SS"),
-            req.body.user,
+            createdBy,
             req.body.office,
             req.body.candidate
         ];
 
         try {
             const { rows } = await db.query(text, values);
-            return res.status(201).send(rows[0]);
+            return res.status(201).send({
+                status:201,
+                message: 'Thank you for voting',
+                data: rows[0],
+            });
         } catch(errpr) {
             return res.status(400).send(errpr)
         }

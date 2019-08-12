@@ -19,7 +19,7 @@ const createPartyTable = () => {
     `CREATE TABLE IF NOT EXISTS
         parties(
             id UUID PRIMARY KEY,
-            name TEXT NOT NULL,
+            name TEXT UNIQUE NOT NULL,
             hqAddress TEXT NOT NULL,
             logoUrl TEXT NOT NULL,
             createdDate TIMESTAMP,
@@ -29,11 +29,9 @@ const createPartyTable = () => {
         pool.query(queryText)
             .then((res) => {
                 console.log(res);
-                pool.end();
             })
             .catch((err) => {
                 console.log(err);
-                // pool.end();
             })
 };
 
@@ -51,21 +49,36 @@ const createUserTable = () => {
         othername VARCHAR(128) NOT NULL,
         email VARCHAR(128) UNIQUE NOT NULL,
         password VARCHAR(128) NOT NULL,
-        phoneNumber VARCHAR(128) NOT NULL,
-        passportUrl VARCHAR(255) NOT NULL,
-        isAdmin BOOLEAN NOT NULL
+        phoneNumber VARCHAR(128) UNIQUE NOT NULL,
+        passportUrl VARCHAR() UNIQUE NOT NULL,
+        isAdmin BOOLEAN NOT NULL DEFAULT false
     )`;
 
     pool.query(queryText)
     .then((res) => {
         console.log(res);
-        pool.end();
+        // pool.end();
     })
     .catch((err) => {
         console.log(err);
         // pool.end();
     })
 };
+
+const createAdminUser = async () => {
+    const user = ` INSERT INTO 
+    users(firstname, lastname, othername, email, password, phoneNumber, passportUrl, isAdmin ) 
+    VALUES('Isaac', 'Warri', 'Emuohwo', 'isaac@ewarri.com',
+     '$2b$08$DPJMyv4DkeuMjYys0/91m.3eyA6HPPSFk/K6gpq6Vd4zBS3XrKu3.', 
+     '+2347030062542', 'https://avatars1.githubusercontent.com/u/41282717?s=40&v=4', 'true')`;
+    pool.query(user)
+    .then((res) =>{
+        console.log(res);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
 
 /**
  * Create Office Table
@@ -76,13 +89,13 @@ const createOfficeTable = () => {
     offices(
         id UUID PRIMARY KEY,
         type VARCHAR(128) NOT NULL,
-        name VARCHAR(128) NOT NULL
+        name VARCHAR(128) UNIQUE NOT NULL
     )`;
 
     pool.query(queryText)
     .then((res) => {
         console.log(res);
-        pool.end();
+        // pool.end();
     })
     .catch((err) => {
         console.log(err);
@@ -99,14 +112,14 @@ const createCandidatesTable = () => {
     candidates(
         id UUID PRIMARY KEY,
         office UUID NOT NULL REFERENCES offices(id) ON DELETE RESTRICT,
-        party UUID NOT NULL REFERENCES parties(id) ON DELETE RESTRICT,
-        candidate UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
+        party UUID NOT NULL FOREIGN KEY  REFERENCES parties(id) ON DELETE RESTRICT,
+        candidate UUID NOT NULL UNIQUE FOREIGN KEY  REFERENCES users(id) ON DELETE CASCADE
     )`;
 
     pool.query(queryText)
     .then((res) => {
         console.log(res);
-        pool.end();
+        // pool.end();
     })
     .catch((err) => {
         console.log(err);
@@ -123,15 +136,15 @@ const createVotesTable = () => {
     votes(
         id UUID PRIMARY KEY,
         createdOn TIMESTAMP NOT NULL,
-        createdBy UUID NOT NULL REFERENCES users(id) ON DELETE RESTRICT,
-        office UUID NOT NULL REFERENCES offices(id) ON DELETE RESTRICT,
-        candidate UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE
+        createdBy UUID NOT NULL FOREIGN KEY  REFERENCES users(id) ON DELETE RESTRICT,
+        office UUID NOT NULL FOREIGN KEY  REFERENCES offices(id) ON DELETE RESTRICT,
+        candidate UUID NOT NULL FOREIGN KEY  REFERENCES users(id) ON DELETE CASCADE
     )`;
 
     pool.query(queryText)
     .then((res) => {
         console.log(res);
-        pool.end();
+        // pool.end();
     })
     .catch((err) => {
         console.log(err);
@@ -139,7 +152,19 @@ const createVotesTable = () => {
     })
 }
 
+const createResultSheet = () => {
+    const queryText = ` CREATE TABLE F NOT EXISTS 
+    results(
+        id INT PRIMARY KEY,
+        partylogo TEXT NOT NULL FOREIGN KEY REFERENCES parties(logoUrl) ON DELETE CASCADE,
+        officeName UUID NOT FOREIGN KEY REFERENCES offices(id) ON DELETE CASCADE,
+        candidate UUID NOT NULL FOREIGN KEY  REFERENCES users(id) ON DELETE CASCADE,
+        totalVotes INT NOT NULL DEFAULT 0
+    )`
+}
+
 createUserTable();
+createAdminUser();
 createPartyTable();
 createOfficeTable();
 createCandidatesTable();

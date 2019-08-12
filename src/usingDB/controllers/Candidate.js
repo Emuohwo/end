@@ -22,9 +22,87 @@ const Candidate = {
 
         try {
             const { rows } = await db.query(text, values);
-            return res.status(201).send(rows[0]);
+            return res.status(201).send({
+                status: 201,
+                message: 'candidate registered',
+                data: rows[0],
+            });
         } catch(error) {
             return res.status(400).send(error);
+        }
+    },
+    /**
+     * Get Candidates by Office
+     * @param {object} req 
+     * @param {object} res 
+     */
+    async getCandidatesByOffice(req, res) {
+        const text = `SELECT candidates.id, candidates.office, users.firstname, users.lastname, office.name AS officename, party.name AS partyname
+        FROM users JOIN candidates 
+        ON users.id = candidates.user_id
+        JOIN office ON candidates.office = office.id 
+        JOIN party ON candidates.party = party.id 
+        WHERE office = $1`;
+        const values = [req.params.office];
+        try {
+            const { rows } = await db.query(text, values);
+            if (!rows) {
+                return res.status(404).send({
+                    status:404,
+                    error: {
+                        message: 'Candidate not found',
+                    },
+                });
+            }
+            return res.status(200).send({
+                status: 200,
+                message: 'successful',
+                data: rows,
+            })
+        } catch(error){
+            return res.status(400).send({
+                status: 404,
+                error: {
+                    message: 'Invalid operation',
+                },
+            });
+        }
+    },
+    /**
+     * Get Candidates by Party
+     * @param {object} req 
+     * @param {object} res 
+     */
+    async getCandidatesByParty(req, res) {
+        const text = `SELECT candidates.id, candidates.office, users.firstname, users.lastname, office.name AS officename, party.name AS partyname
+        FROM users JOIN candidates 
+        ON users.id = candidates.user_id
+        JOIN office ON candidates.office = office.id 
+        JOIN party ON candidates.party = party.id 
+        WHERE party = $1`;
+        const values = [req.params.party];
+        try {
+            const { rows } = await db.query(text, values);
+            if (!rows) {
+                return res.status(404).send({
+                    status:404,
+                    error: {
+                        message: 'Party not found',
+                    },
+                });
+            }
+            return res.status(200).send({
+                status: 200,
+                message: 'successful',
+                data: rows,
+            })
+        } catch(error){
+            return res.status(400).send({
+                status: 404,
+                error: {
+                    message: 'Invalid operation',
+                },
+            });
         }
     },
     /**
@@ -99,7 +177,7 @@ const Candidate = {
         try {
             const { rows } = await db.query(deleteQuery, [req.params.id, req.user.id]);
             if (!rows[0]) {
-                return res.status(404).send({'message': 'candidate nt found'})
+                return res.status(404).send({'message': 'candidate not found'})
             }
             return res.status(204).send({'message': 'Candidate deleted'})
         } catch(error) {
