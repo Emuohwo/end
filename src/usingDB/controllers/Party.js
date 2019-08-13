@@ -40,7 +40,12 @@ const Party = {
         const findAllQuery = 'SELECT * FROM parties';
         try {
             const { rows, rowCount } = await db.query(findAllQuery);
-            return res.status(200).send((rows, rowCount));
+            return res.status(200).send({
+                status: 200,
+                message: 'All parties retrieved',
+                data: rows,
+                rowCount,
+              });
         } catch (error) {
             return res.status(400).send(error);
         }
@@ -54,13 +59,16 @@ const Party = {
     async getOne(req, res) {
         const text = 'SELECT * FROM parties WHERE id = $1';
         try {
-            const  { rows } = await db.query(text, [req.params.id, req.user.id]);
+            const  { rows } = await db.query(text, [req.params.id]);
             if (!rows[0]) {
                 return res.status(404).send({'message': 'party not found'});
             }
-            return res.status(200).send(rows[0]);
+            return res.status(200).send({
+                status: 200,
+                data: rows[0],
+            });
         } catch (error) {
-            return res.status(400).send(error)
+            return res.status(400).send(error.message)
         }
     },
     /**
@@ -75,17 +83,16 @@ const Party = {
         SET name=$1,hqAddress=$2,logoUrl=$3,modifiedDate=$4
         WHERE id=$5  returning *`;
         try {
-            const { rows } = await db.query(findOneQuery, [req.params.id, req.user.id]);
+            const { rows } = await db.query(findOneQuery, [req.params.id]);
             if(!rows[0]) {
                 return res.status(404).send({'message': 'party not found'});
             }
             const values = [
                 req.body.name || rows[0].name,
-                req.body.hqAdrress || rows[0].hqAdrress,
-                req.body.logoUrl || rows[0].logoUrl,
+                req.body.hqaddress || rows[0].hqaddress,
+                req.body.logourl || rows[0].logourl,
                 moment(new Date()),
                 req.params.id,
-                req.user.id
             ];
             const response = await db.query(updateOneQuery, values);
             return res.status(200).send(response.rows[0]);
@@ -106,7 +113,10 @@ const Party = {
             if (!rows[0]) {
                 return res.status(404).send({'message': 'party not found'});
             }
-            return res.status(204).send({'message': 'deleted'});
+            return res.status(204).send({
+                status: 204,
+                message: 'deleted',
+            });
         } catch(error) {
             return res.status(400).send(error);
         }
