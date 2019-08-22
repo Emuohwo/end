@@ -18,7 +18,7 @@ const candidateRoutes = (router) => {
   router.get('/candidates/:office', user, Candidate.getCandidatesByOffice);
   router.get('/candidates/:party', user, Candidate.getCandidatesByParty);
   router.put('/candidates/:id', user, Candidate.updateOndeCandidate);
-  router.patch('/candidates/:id/status', isAdmin, Candidate.updateOndeCandidate);
+  router.patch('/candidates/:id/status', isAdmin, Candidate.updateStatus);
   router.delete('/candidates/:id', user, Candidate.deleteCandidate);
 };
 
