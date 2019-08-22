@@ -1,16 +1,22 @@
-// import User from '../src/controllers/User';
-import User from '../src/usingJSObject/controllers/User';
+import User from '../src/usingDB/controllers/User';
+import Admin from '../src/usingDB/middleware/index';
+import Auth from '../src/usingDB/middleware/Auth';
+
+const isAdmin = [
+  Admin.isAdmin,
+  Auth.verifyToken
+];
+
+const user = [
+  Auth.verifyToken
+];
+
 
 const userRoutes = (router) => {
-  router.post('/api/v1/users', User.create);
-  router.get('/api/v1/users', User.getAll);
-  router.get('/api/v1/users/:id', User.getOne);
-  router.put('/api/v1/users/:id', User.update);
-  router.delete('/api/v1/users/:id', User.delete);
+  router.post('/auth/signup', User.create);
+  router.post('/auth/login', User.login);
+  router.delete('/users/me', user, User.delete);
   
-// router.post('/api/users', UserWithDb.create);
-// router.post('/api/users/login', UserWithDb.login);
-// router.delete('/api/users/me', Auth.verifyToken, UserWithDb.delete);
 };
 
 export default userRoutes;

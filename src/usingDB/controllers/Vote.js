@@ -1,5 +1,4 @@
 import moment, { min } from 'moment';
-import uuidv4 from 'uuid/v4';
 import db from '../db';
 
 const Vote = {
@@ -12,10 +11,9 @@ const Vote = {
     async createVote(req, res) {
         const { id: createdBy } = req.user;
         const text = `INSERT INTO 
-        votes(id, createdOn, createdBy, office, candidate) 
+        votes(createdon, createdby, office, candidate) 
         VALUES($1, $2, $3, $4, $5) returning *`;
         const values = [
-            uuidv4(),
             moment(new Date()).format("YYY-MM-DD HH:MM:SS"),
             createdBy,
             req.body.office,
@@ -75,7 +73,7 @@ const Vote = {
     async updateVote(req, res) {
         const findOneQuery = 'SELECT * FROM votes office = $1';
         const updateOneQuery = `UPDADE votes 
-        SET createdOn=$1,createdBy=$2,candidate=$3 
+        SET createdon=$1,createdby=$2,candidate=$3 
         WHERE office=$4 returning *`;
         try {
             const { rows } = await db.query(findOneQuery, [req.params.id, req.office.id]);

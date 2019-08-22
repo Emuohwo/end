@@ -11,19 +11,22 @@ const Office = {
      */
     async create(req, res) {
         const text = `INSERT INTO
-        offices(id, type, name) 
-        VALUES($1, $2, $3) 
+        offices(type, name) 
+        VALUES($1, $2) 
         returning *`;
 
         const values = [
-            uuidv4(),
             req.body.type,
             req.body.name
         ];
 
         try {
             const { rows } = await db.query(text, values);
-            return res.status(201).send(rows[0]);
+            return res.status(201).send({
+                status: 201,
+                message: 'Office created Successfully',
+                data: rows[0],
+            });
         } catch(error) {
             return res.status(400).send(error);
         }
@@ -38,7 +41,12 @@ const Office = {
         const findAllQuery = 'SELECT * FROM offices';
         try {
             const { rows, rowCount } = await db.query(findAllQuery);
-            return res.status(200).send((rows, rowCount));
+            return res.status(200).send({
+                status: 200,
+                message:'Offices retrieved successfully',
+                rows,
+                rowCount
+            });
         } catch(error) {
             return res.status(400).send(error)
         }
@@ -52,9 +60,14 @@ const Office = {
     async getOneOffice(req, res) {
         const text = 'SELECT * FROM offices WHERE id = $1';
         try {
-            const { rows } = await db.query(text, [req.params.id, req.user.id]);
-            if (!rows[0]) 
+            const { rows } = await db.query(text, [req.params.id]);
+            if (!rows[0]) {
             return res.status(404).send({'message': 'Office not found'});
+            }
+            return res.status(200).send({
+                status: 200,
+                data: rows[0],
+            });
         } catch(error) {
             return res.status(400).send(error)
         }
@@ -93,13 +106,13 @@ const Office = {
      * @returns {void} return status code 204
      */
     async delete(req, res) {
-        const deleteOffice = 'DELETE GROM offices WHERE id=$1 returning *';
+        const deleteOffice = 'DELETE FROM offices WHERE id=$1 returning *';
         try {
-            const { rows } = await db.query(deleteOffice, [req.params.id, req.user.id]);
+            const { rows } = await db.query(deleteOffice, [req.params.id]);
             if (!rows[0]) {
                 return res.status(404).send({'message': 'office not found'})
             }
-            return res.status(204).send({'message': 'Office deleted'});
+            return res.status(204).send({message: 'Office deleted'});
         } catch(error) {
             return res.status(400).send(error);
         }

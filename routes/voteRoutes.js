@@ -1,12 +1,13 @@
-// import Vote from '../src/controllers/Vote';
-import Vote from '../src/usingJSObject/controllers/Vote';
+import Vote from '../src/usingDB/controllers/Vote';
+import Auth from '../src/usingDB/middleware/Auth';
+
+
+const user = [
+  Auth.verifyToken
+];
 
 const voteRoutes = (router) => {
-  router.post('/api/v1/votes', Vote.create);
-  router.get('/api/v1/votes', Vote.getAll);
-  router.get('/api/v1/votes/:id', Vote.getOne);
-  router.put('/api/v1/votes/:id', Vote.update);
-  router.delete('/api/v1/votes/:id', Vote.delete);
+  router.post('/votes', user, Vote.createVote);
 };
 
 export default voteRoutes;

@@ -1,4 +1,4 @@
-import uuidv4 from 'uuid/v4';
+// import uuidv4 from 'uuid/v4';
 import db from '../db';
 
 const Candidate = {
@@ -10,11 +10,10 @@ const Candidate = {
      */
     async createCandidate(req, res) {
         const text = `INSERT INTO 
-        candidates(id, office, party, candidate) 
-        VALUES($1, $2, $3, $4) 
+        candidates(office, party, candidate) 
+        VALUES($1, $2, $3) 
         returning *`;
         const values = [
-            uuidv4(),
             req.body.office,
             req.body.party,
             req.body.candidate
@@ -39,7 +38,7 @@ const Candidate = {
     async getCandidatesByOffice(req, res) {
         const text = `SELECT candidates.id, candidates.office, users.firstname, users.lastname, office.name AS officename, party.name AS partyname
         FROM users JOIN candidates 
-        ON users.id = candidates.user_id
+        ON users.id = candidates.id
         JOIN office ON candidates.office = office.id 
         JOIN party ON candidates.party = party.id 
         WHERE office = $1`;
@@ -112,10 +111,15 @@ const Candidate = {
      * @returns {object} candidates array
      */
     async getAllCandidates(req, res) {
-        const findAllQuery = 'SELECT * FROM candidates WHERE office = $1';
+        const findAllQuery = 'SELECT * FROM candidates';
         try {
-            const { rows, rowCount } = await db.query(findAllQuery, [req.office.id]);
-            return res.status(200).send((rows, rowCount));
+            const { rows, rowCount } = await db.query(findAllQuery);
+            return res.status(200).send({
+                status: 200,
+                message: 'All Candidates retrieved',
+                data: rows,
+                rowCount,
+              });
         } catch(error) {
             return res.status(400).send(error);
         }
@@ -183,8 +187,40 @@ const Candidate = {
         } catch(error) {
             return res.status(400).send(error);
         }
+    },
+    /**
+     * Update status 
+     */
+    async updateStatus(req, res) {
+        const updateOneQuery = `UPDATE candidates
+        SET status=$1
+        WHERE id=$2 returning *`;
+        try {
+          const { rows } = await db.query(updateOneQuery, [req.body.status.trim(), req.params.id]);
+          if (!rows[0]) {
+            return res.status(404).send({
+              status: 404,
+              message: 'candidate not found',
+            });
+          }
+          return res.status(200).send({
+            status: 200,
+            message: 'Candidate status updated',
+            data: rows[0],
+          });
+        } catch (err) {
+          return res.status(400).send({
+            status: 400,
+            error: {
+              message: err.message,
+            },
+          });
+        }
     }
-
 }
+
+
+
+    
 
 export default Candidate;

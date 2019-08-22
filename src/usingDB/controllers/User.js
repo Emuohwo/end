@@ -19,33 +19,32 @@ const User = {
     const hashPassword = Helper.hashPassword(req.body.password);
 
     const createQuery = `INSERT INTO
-      users(id, firstname, lastname, othername, email, password, phoneNumber, passportUrl)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      users(firstname, lastname, othernames, email, password, phonenumber, passportUrl)
+      VALUES($1, $2, $3, $4, $5, $6, $7)
       returning *`;
     const values = [
-      uuidv4(),
       req.body.firstname,
       req.body.lastname,
-      req.body.othername,
+      req.body.othernames,
       req.body.email,
       hashPassword,
-      req.body.phoneNumber,
-      req.body.passportUrl
+      req.body.phonenumber,
+      req.body.passporturl
     ];
 
     try {
       const { rows } = await db.query(createQuery, values);
       const token = Helper.generateToken(rows[0].id, rows[0].isadmin);
-      const {id, firstname, lastname, othername, email, phoneNumber, passportUrl, isAdmin} = rows[0];
+      const {id, firstname, lastname, othernames, email, phonenumber, passporturl} = rows[0];
       const user = {
         id,
         firstname,
         lastname,
-        othername,
+        othernames,
         email,
-        phoneNumber,
-        passportUrl,
-        isAdmin,
+        phonenumber,
+        passporturl,
+        isadmin,
       }
       return res.status(201).send({ 
         status: 201,
@@ -85,16 +84,16 @@ const User = {
         return res.status(400).send({ 'message': 'Incorrect password' });
       }
       const token = Helper.generateToken(rows[0].id, rows[0].isadmin);
-      const {id, firstname, lastname, othername, email, phoneNumber, passportUrl, isAdmin} = rows[0];
+      const {id, firstname, lastname, othernames, email, phonenumber, passporturl, isadmin} = rows[0];
       const user = {
         id,
         firstname,
         lastname,
-        othername,
+        othernames,
         email,
-        phoneNumber,
-        passportUrl,
-        isAdmin
+        phonenumber,
+        passporturl,
+        isadmin
       };
       return res.status(200).send({ 
         status: 200,

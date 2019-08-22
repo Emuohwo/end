@@ -1,5 +1,4 @@
 import moment, { min } from 'moment';
-import uuidv4 from 'uuid/v4';
 import db from '../db';
 
 const Party = {
@@ -11,16 +10,15 @@ const Party = {
      */
     async create(req, res) {
         const text = `INSERT INTO
-        parties(id, name, hqAddress, logoUrl, createdDate, modifiedDate)
-        VALUES($1, $2, $3, $4, $5, $6)
+        parties(name, hqaddress, logourl, createddate, modifieddate)
+        VALUES($1, $2, $3, $4, $5)
         returning *`;
         const values = [
-            uuidv4(),
             req.body.name,
-            req.body.hqAddress,
-            req.body.logoUrl,
-            moment(new Date()),
-            moment(new Date()).format("YYYY-MM-DD HH:MM:SS")
+            req.body.hqaddress,
+            req.body.logourl,
+            new Date(),
+            new Date()
         ];
 
         try {
@@ -80,7 +78,7 @@ const Party = {
     async update(req, res) {
         const findOneQuery = 'SELECT * FROM parties WHERE id=$1';
         const updateOneQuery = `UPDATE parties
-        SET name=$1,hqAddress=$2,logoUrl=$3,modifiedDate=$4
+        SET name=$1,hqaddress=$2,logourl=$3,modifiedDate=$4
         WHERE id=$5  returning *`;
         try {
             const { rows } = await db.query(findOneQuery, [req.params.id]);
